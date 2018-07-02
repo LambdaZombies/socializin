@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import firebase from "./firebase";
-import Calendar from "./calendar";
 
 export default class Navbar extends Component {
   constructor() {
@@ -37,7 +36,7 @@ export default class Navbar extends Component {
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link className="nav-link" to="/">
-            Calander
+            Calendar
           </Link>
         </li>
         <li className="nav-item">

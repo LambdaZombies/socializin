@@ -7,29 +7,11 @@ import firebase from "./firebase";
 import "../CSS/login.css";
 
 const sendToken = (tokenId, sendEmail) => {
-  // setter
+  // token setter
   sessionStorage.setItem("tokenId", tokenId);
   sessionStorage.setItem("email", sendEmail);
-
-  // console.log('Inside sendToken(), this.props: ', this.props);
-
-  console.log("sending token to server!");
-  const data = {
-    token: tokenId,
-    email: sendEmail,
-  };
-  axios
-    .post("http://localhost:3030/auth", data)
-    .then(res => {
-      const usertype = res.data.userType;
-      sessionStorage.setItem("userType", usertype);
-      console.log("Response from server: ", res);
-      if (usertype === "managerUser") window.location = "/open_loans";
-      else window.location = "/my_loans";
-    })
-    .catch(err => {
-      console.log("Login Failed!", err);
-    });
+  console.log("REDIRECTING!!!!!!!!!!!!!!!!!");
+  window.location = "/calendar";
 };
 
 const uiConfig = {
@@ -67,9 +49,6 @@ export default function AccountLogin() {
           uiConfig={uiConfig}
           firebaseAuth={firebase.auth()}
         />
-        <div className="Account-text-containter">
-          <Link to="/password_reset">Forgot Password?</Link>
-        </div>
       </div>
     </div>
   );

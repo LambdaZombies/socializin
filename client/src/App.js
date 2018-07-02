@@ -20,7 +20,7 @@ class App extends Component {
                     Connect with your friends through their busy schedules.
                   </p>
                   <hr />
-                  <Link to="/" className="btn btn-lg btn-info mr-2">
+                  <Link to="/signup" className="btn btn-lg btn-info mr-2">
                     Sign Up
                   </Link>
                   <Link to="/login" className="btn btn-lg btn-light">
