@@ -10,11 +10,17 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  phoneNumber: {
+  mobileNumber: {
     type: Number
   },
   image: {
     type: String
+  },
+  acceptTexts: {
+    type: Boolean
+  },
+  acceptEmails: {
+    type: Boolean
   },
   groups: [
     {
