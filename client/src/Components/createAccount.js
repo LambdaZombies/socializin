@@ -49,7 +49,6 @@ class AccountCreation extends Component {
 
   submitClientAccountInfo = () => {
     this.sendToDB();
-    console.log("REDIRECTING!!!!!!!!!!!!!!!!!!!!!!!!!");
     window.location = "/calendar";
   };
 
@@ -129,9 +128,9 @@ class AccountCreation extends Component {
                 />{" "}
                 I would like to recieve EMAIL notifications<br />
                 <br />
-                <button onClick={this.submitClientAccountInfo()}>Submit</button>
               </fieldset>
             </form>
+            <button onClick={this.submitClientAccountInfo}>Submit</button>
           </div>
         </div>
       );
