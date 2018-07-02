@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Calendar from "./Components/calendar";
-// import AccountLogin from './Component/AccountLogin';
+import Login from "./Components/login";
 // import LoanList from './Component/LoanList';
 // import Settings from './Component/Settings';
 // import LoanCreate from './Component/LoanCreate';
@@ -27,6 +27,7 @@ ReactDOM.render(
     <div>
       <Route exact path="/" component={App} />
       <Route path="/calendar" component={Calendar} />
+      <Route path="/login" component={Login} />
     </div>
   </Router>,
   document.getElementById("root")
