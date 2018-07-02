@@ -1,31 +1,25 @@
 const mongoose = require("mongoose");
 
-const User = require("../models/userModels");
+const User = require("../models/User");
 
 const STATUS_USER_ERROR = 422;
 
 const userCreate = (req, res) => {
   const {
-    firstName,
-    lastName,
-    password,
-    userType,
+    name,
     email,
-    mobilePhone,
-    acceptTexts,
-    acceptEmails,
-    subscriptionEndDate,
+    phoneNumber,
+    image,
+    groups,
+    events,
   } = req.body;
   const newUser = new User({
-    firstName,
-    lastName,
-    password,
-    userType,
+    name,
     email,
-    mobilePhone,
-    acceptTexts,
-    acceptEmails,
-    subscriptionEndDate,
+    phoneNumber,
+    image,
+    groups,
+    events,
   });
   newUser.save((err, savedUser) => {
     if (err) {
