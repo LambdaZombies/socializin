@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import Navbar from "./Components/navbar";
-import "./App.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import Navbar from './Components/navbar';
+import Footer from './Components/footer';
+import './App.css';
 
 class App extends Component {
   render() {
@@ -31,6 +32,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

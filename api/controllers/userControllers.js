@@ -8,16 +8,18 @@ const userCreate = (req, res) => {
   const {
     name,
     email,
-    phoneNumber,
-    image,
+    mobileNumber,
+    acceptTexts,
+    acceptEmails,
     groups,
     events,
   } = req.body;
   const newUser = new User({
     name,
     email,
-    phoneNumber,
-    image,
+    mobileNumber,
+    acceptTexts,
+    acceptEmails,
     groups,
     events,
   });
@@ -28,26 +30,6 @@ const userCreate = (req, res) => {
     }
     res.json(savedUser);
   });
-};
-
-const userLogin = (req, res) => {
-  const { email, password } = req.body;
-  User.findOne({ email, password })
-    .select("email")
-    .exec()
-    .then(user => {
-      if (user === null) {
-        throw new Error();
-      }
-      res.json(user);
-    })
-    .catch(err => res.status(422).json({ error: err.message }));
-};
-
-const userToken = (req, res) => {
-  const { token } = req.body;
-  console.log(token);
-  res.json("Authenticated!");
 };
 
 const usersGetAll = (req, res) => {
@@ -90,17 +72,15 @@ const userGetById = (req, res) => {
 };
 
 const userEdit = (req, res) => {
-  console.log("loan edit");
+  console.log("Dashboard");
   const {
-    firstName,
-    lastName,
-    password,
-    userType,
+    name,
     email,
-    mobilePhone,
+    mobileNumber,
     acceptTexts,
     acceptEmails,
-    subscriptionEndDate,
+    groups,
+    events,
   } = req.body;
   // find a single User
   // edit user details
@@ -130,11 +110,9 @@ const userEdit = (req, res) => {
 };
 
 module.exports = {
-  userLogin,
   userCreate,
   usersGetAll,
   userDelete,
   userGetById,
-  userEdit,
-  userToken,
+  userEdit
 };
