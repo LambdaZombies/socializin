@@ -69,8 +69,7 @@ class AccountCreation extends Component {
     const userInfo = {
       name: this.state.name,
       email: this.state.email,
-      token: this.state.tokenId,
-      mobilePhone: this.state.phoneNumber,
+      mobileNumber: this.state.phoneNumber,
       acceptTexts: this.state.acceptText,
       acceptEmails: this.state.acceptEmail,
     };
