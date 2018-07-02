@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Calendar from './calendar';
 
 class Navbar extends Component {
   render() {
