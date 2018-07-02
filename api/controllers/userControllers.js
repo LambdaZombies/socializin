@@ -5,29 +5,21 @@ const User = require("../models/User");
 const STATUS_USER_ERROR = 422;
 
 const userCreate = (req, res) => {
-  const {
-    name,
-    email,
-    mobileNumber,
-    acceptTexts,
-    acceptEmails,
-    groups,
-    events,
-  } = req.body;
+  const { name, email, mobileNumber, acceptTexts, acceptEmails } = req.body;
   const newUser = new User({
     name,
     email,
     mobileNumber,
     acceptTexts,
     acceptEmails,
-    groups,
-    events,
   });
   newUser.save((err, savedUser) => {
     if (err) {
+      console.log(err);
       res.status(500).json(JSON.stringify(err));
       return;
     }
+    console.log(savedUser);
     res.json(savedUser);
   });
 };
@@ -89,15 +81,13 @@ const userEdit = (req, res) => {
   User.findById(id)
     .then(User => {
       if (User === null) throw new Error();
-      if (firstName) User.firstName = firstName;
-      if (lastName) User.lastName = lastName;
-      if (password) User.password = password;
-      if (userType) User.userType = userType;
+      if (firstName) User.name = name;
       if (email) User.email = email;
       if (mobilePhone) User.mobilePhone = mobilePhone;
       if (acceptTexts) User.acceptTexts = acceptTexts;
       if (acceptEmails) User.acceptEmails = acceptEmails;
-      if (subscriptionEndDate) User.subscriptionEndDate = subscriptionEndDate;
+      if (groups) User.groups = groups;
+      if (events) User.events = events;
       User.save(User, (err, saveduser) => {
         if (err) {
           res.status(500).json(err);
@@ -106,7 +96,7 @@ const userEdit = (req, res) => {
         res.json(saveduser);
       });
     })
-    .catch(err => res.status(422).json({ error: "No Loan!" }));
+    .catch(err => res.status(422).json({ error: "No User!" }));
 };
 
 module.exports = {
@@ -114,5 +104,5 @@ module.exports = {
   usersGetAll,
   userDelete,
   userGetById,
-  userEdit
+  userEdit,
 };

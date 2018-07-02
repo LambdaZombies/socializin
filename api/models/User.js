@@ -1,39 +1,40 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   mobileNumber: {
-    type: Number
+    type: Number,
   },
   image: {
-    type: String
+    type: String,
   },
   acceptTexts: {
-    type: Boolean
+    type: Boolean,
   },
   acceptEmails: {
-    type: Boolean
+    type: Boolean,
   },
   groups: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Groups'
-    }
+      ref: "Groups",
+    },
   ],
   events: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Events'
-    }
-  ]
+      ref: "Events",
+    },
+  ],
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);
