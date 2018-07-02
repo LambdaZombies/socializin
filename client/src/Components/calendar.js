@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 import events from "./events";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
