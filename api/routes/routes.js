@@ -4,9 +4,6 @@ module.exports = app => {
   // Creates a new user. Creates a new row for the user in User collection.
   app.route("/newuser").post(userControllers.userCreate);
 
-  // Checks log in credentials for a user.
-  app.route("/login").post(userControllers.userLogin);
-
   // Returns all users in the database. This is just for manual debugging,
   // frontend should never need to user it.
   app.route("/users").get(userControllers.usersGetAll);
@@ -20,5 +17,5 @@ module.exports = app => {
 
   // Recieve client token after authentication
 
-  app.route("/auth").post(userControllers.userToken);
+  // app.route("/auth").post(userControllers.userToken);
 };
