@@ -2,6 +2,7 @@ import React from "react";
 import events from "./events";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
+import Schedule from "./schedule"
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 moment.locale("en-GB");
@@ -17,6 +18,7 @@ const calendar = () => (
       views={allViews}
       defaultDate={new Date(2018, 6, 1)}
     />
+    <Schedule />
   </div>
 );
 
