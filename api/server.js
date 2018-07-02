@@ -1,9 +1,9 @@
 // const postData = require('./application-data.js');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const routes = require('./routes/routes');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const routes = require("./routes/routes");
 
 const port = process.env.PORT || 3030;
 const server = express();
@@ -17,24 +17,31 @@ const server = express();
 //   optionsSuccessStatus: 204,
 // };
 
-
 // Connect to MongoDB & Database Config
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+  // .connect(process.env.MONGOLAB_MAROON_URI)
+  .connect("mongodb://TravisJ:Cheese21.@ds125031.mlab.com:25031/socializin")
+  .then(function(db) {
+    console.log("All your dbs are belong to us!");
+    server.listen(port, function() {
+      console.log("server running on port " + port);
+    });
+  })
+  .catch(function(err) {
+    console.log("DB connection failed..", err.message);
+  });
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-// server.use(cors());
+server.use(cors());
 
 server.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
@@ -42,6 +49,6 @@ server.use((req, res, next) => {
 // Routes
 routes(server);
 
-server.listen(port, () => {
-  console.log(`server listening on port ${port}`);
-});
+// server.listen(port, () => {
+//   console.log(`server listening on port ${port}`);
+// });
