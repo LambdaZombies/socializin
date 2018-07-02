@@ -15,7 +15,7 @@ const calendar = () => (
       events={events}
       step={60}
       views={allViews}
-      defaultDate={new Date(2015, 3, 1)}
+      defaultDate={new Date(2018, 6, 1)}
     />
   </div>
 );
