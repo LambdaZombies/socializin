@@ -2,7 +2,8 @@ import React from "react";
 import events from "./events";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
-import Schedule from "./schedule"
+import Schedule from "./schedule";
+import Navbar from './navbar';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 moment.locale("en-GB");
@@ -12,6 +13,7 @@ const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
 
 const calendar = () => (
   <div style={{ height: 700 }}>
+    <Navbar />
     <BigCalendar
       events={events}
       step={60}

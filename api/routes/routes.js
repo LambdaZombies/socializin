@@ -1,4 +1,5 @@
 const userControllers = require("../controllers/userControllers");
+const groupControllers = require("../controllers/groupController");
 
 module.exports = app => {
   // Creates a new user. Creates a new row for the user in User collection.
@@ -15,7 +16,7 @@ module.exports = app => {
     .post(userControllers.userEdit)
     .delete(userControllers.userDelete);
 
-  // Recieve client token after authentication
+    app.route("/newgroup").post(groupControllers.groupCreate);
 
   // app.route("/auth").post(userControllers.userToken);
 };
