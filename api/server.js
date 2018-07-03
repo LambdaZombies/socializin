@@ -10,18 +10,20 @@ const server = express();
 
 // let token = token;
 
-// const corsOptions = {
-//   origin: "*",
-//   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
-//   preflightContinue: false,
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: "*",
+  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
 
 // Connect to MongoDB & Database Config
-const db = require('../config/keys').mongoURI;
+const db = require("../config/keys").mongoURI;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://Testy:abc123@ds125031.mlab.com:25031/socializin' || "mongodb://localhost/socializin")
+mongoose
+  .connect("mongodb://Testy:abc123@ds125031.mlab.com:25031/socializin")
+  // .connect("mongodb://localhost:27017/socializin")
   .then(function(db) {
     console.log("All your dbs are belong to us!");
     server.listen(port, function() {

@@ -20,14 +20,14 @@ const userCreate = (req, res) => {
       return;
     }
     console.log(savedUser);
-    res.json(savedUser);
+    res.status(200).json(savedUser);
   });
 };
 
 const usersGetAll = (req, res) => {
   User.find({})
     .then(users => {
-      res.json(users);
+      res.status(200).json(users);
     })
     .catch(err => res.status(422).json(err));
 };
@@ -45,7 +45,7 @@ const userDelete = (req, res) => {
           res.status(500).json(err);
           return;
         }
-        res.json("User has been completely deleted!");
+        res.status(200).json("User has been completely deleted!");
       });
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
@@ -58,7 +58,7 @@ const userGetById = (req, res) => {
   User.findById(id)
     .then(User => {
       if (User === null) throw new Error();
-      else res.json(User);
+      else res.status(200).json(User);
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
 };
@@ -93,7 +93,7 @@ const userEdit = (req, res) => {
           res.status(500).json(err);
           return;
         }
-        res.json(saveduser);
+        res.status(200).json(saveduser);
       });
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
