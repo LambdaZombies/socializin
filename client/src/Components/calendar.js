@@ -13,21 +13,21 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 //   end: new Date(2018, 8, 20, 0, 0, 0),
 // },
 
-const eventStyleGetter = (event, start, end, isSelected) => {
-  console.log('EVENT!!', event);
-  var backgroundColor = '#' + event.hexColor;
-  var style = {
-    backgroundColor: 'red',
-    borderRadius: '0px',
-    opacity: 0.8,
-    color: 'black',
-    border: '0px',
-    display: 'block'
-  };
-  return {
-    style: style
-  };
-};
+// const eventStyleGetter = (event, start, end, isSelected) => {
+//   console.log('EVENT!!', event);
+//   var backgroundColor = '#' + event.hexColor;
+//   var style = {
+//     backgroundColor: 'red',
+//     borderRadius: '0px',
+//     opacity: 0.8,
+//     color: 'black',
+//     border: '0px',
+//     display: 'block'
+//   };
+//   return {
+//     style: style
+//   };
+// };
 
 moment.locale('en-GB');
 BigCalendar.momentLocalizer(moment);
