@@ -75,7 +75,7 @@ class AccountCreation extends Component {
     this.setState({ acceptEmail: !this.state.acceptEmail });
   };
 
-  sendToDB = () => {
+  sendToDB = async () => {
     const userInfo = {
       name: this.state.name,
       email: this.state.email,
@@ -84,16 +84,15 @@ class AccountCreation extends Component {
       acceptEmails: this.state.acceptEmail,
     };
     console.log("sending to db:", userInfo);
-    axios
-      .post(`${base}/newuser`, userInfo)
-      .then(res => {
-        console.log("Response from server: ", res);
-      })
-      .catch(err => {
-        // throw err;
-        console.log("error creating user");
-      });
-  };
+    try{
+      await axios.post(`https://socializin.herokuapp.com/newuser`, userInfo)
+      // .then(res => {
+        //   console.log("Response from server: ", res);
+        // })
+    } catch(err) {
+        throw err;
+      };
+    };
 
   render() {
     const token = sessionStorage.getItem("tokenId");
