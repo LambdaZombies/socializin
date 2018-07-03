@@ -65,7 +65,7 @@ export default class Navbar extends Component {
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/signup">
             Sign Up
           </Link>
         </li>
