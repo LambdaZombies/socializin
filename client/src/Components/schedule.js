@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-responsive-modal";
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 
 const customStyles = {
   content: {
@@ -22,6 +22,18 @@ class Schedule extends React.Component {
     startTimeMin: "",
   };
 
+  handleDropDownStartMonth = e => {
+    this.setState({ startMonth: e.target.value });
+  };
+
+  handleDropDownStartDay = e => {
+    this.setState({ startDay: e.target.value });
+  };
+
+  handleDropDownStartYear = e => {
+    this.setState({ startYear: e.target.value });
+  };
+
   handleDropDownStartTimeHour = e => {
     this.setState({ startTimeHour: e.target.value });
   };
@@ -32,6 +44,18 @@ class Schedule extends React.Component {
 
   handleDropDownStartTimeAMPM = e => {
     this.setState({ startAMPM: e.target.value });
+  };
+
+  handleDropDownEndMonth = e => {
+    this.setState({ endMonth: e.target.value });
+  };
+
+  handleDropDownEndDay = e => {
+    this.setState({ endDay: e.target.value });
+  };
+
+  handleDropDownEndYear = e => {
+    this.setState({ endYear: e.target.value });
   };
 
   handleDropDownEndTimeHour = e => {
@@ -63,8 +87,73 @@ class Schedule extends React.Component {
           <h2 ref={subtitle => (this.subtitle = subtitle)}>Add Event</h2>
           <input />
           <br />
-
+          {/* <DatePicker selected={this.state.startDate} onChange={this.handleInputChange}/> */}
           <h4 style={{textAlign:"center"}}><b>Start</b></h4>
+          <label>Month</label>
+          <select
+            value={this.state.startMonth}
+            onChange={this.handleDropDownStartMonth}
+          >
+            <option value="0">Jan</option>
+            <option value="1">Feb</option>
+            <option value="2">Mar</option>
+            <option value="3">Apr</option>
+            <option value="4">May</option>
+            <option value="5">Jun</option>
+            <option value="6">Jul</option>
+            <option value="7">Aug</option>
+            <option value="8">Sep</option>
+            <option value="9">Oct</option>
+            <option value="10">Nov</option>
+            <option value="11">Dec</option>
+          </select>
+          <label>Day</label>
+          <select
+            value={this.state.startDay}
+            onChange={this.handleDropDownStartDay}
+          >
+            <option value="0">01</option>
+            <option value="1">02</option>
+            <option value="2">03</option>
+            <option value="3">04</option>
+            <option value="4">05</option>
+            <option value="5">06</option>
+            <option value="6">07</option>
+            <option value="7">08</option>
+            <option value="8">09</option>
+            <option value="9">10</option>
+            <option value="10">11</option>
+            <option value="11">12</option>
+            <option value="12">13</option>
+            <option value="13">14</option>
+            <option value="14">15</option>
+            <option value="15">16</option>
+            <option value="16">17</option>
+            <option value="17">18</option>
+            <option value="18">19</option>
+            <option value="19">20</option>
+            <option value="20">21</option>
+            <option value="21">22</option>
+            <option value="22">23</option>
+            <option value="23">24</option>
+            <option value="24">25</option>
+            <option value="25">26</option>
+            <option value="26">27</option>
+            <option value="27">28</option>
+            <option value="28">29</option>
+            <option value="29">30</option>
+            <option value="30">31</option>
+          </select>
+          <label>Year</label>
+          <select
+            value={this.state.startYear}
+            onChange={this.handleDropDownStartYear}
+          >
+            <option value="2017">2018</option>
+            <option value="2018">2019</option>
+            <option value="2019">2020</option>
+          </select>
+          <br />
           <label>Hour</label>
           <select
             value={this.state.startTimeHour}
@@ -103,6 +192,73 @@ class Schedule extends React.Component {
           </select>
           <br />
           <h4 style={{textAlign:"center"}}><b>End</b></h4>
+          <label>Month</label>
+          <select
+            value={this.state.endMonth}
+            onChange={this.handleDropDownEndMonth}
+          >
+            <option value="0">Jan</option>
+            <option value="1">Feb</option>
+            <option value="2">Mar</option>
+            <option value="3">Apr</option>
+            <option value="4">May</option>
+            <option value="5">Jun</option>
+            <option value="6">Jul</option>
+            <option value="7">Aug</option>
+            <option value="8">Sep</option>
+            <option value="9">Oct</option>
+            <option value="10">Nov</option>
+            <option value="11">Dec</option>
+          </select>
+          <label>Day</label>
+          <select
+            value={this.state.endDay}
+            onChange={this.handleDropDownEndDay}
+          >
+            <option value="0">01</option>
+            <option value="1">02</option>
+            <option value="2">03</option>
+            <option value="3">04</option>
+            <option value="4">05</option>
+            <option value="5">06</option>
+            <option value="6">07</option>
+            <option value="7">08</option>
+            <option value="8">09</option>
+            <option value="9">10</option>
+            <option value="10">11</option>
+            <option value="11">12</option>
+            <option value="12">13</option>
+            <option value="13">14</option>
+            <option value="14">15</option>
+            <option value="15">16</option>
+            <option value="16">17</option>
+            <option value="17">18</option>
+            <option value="18">19</option>
+            <option value="19">20</option>
+            <option value="20">21</option>
+            <option value="21">22</option>
+            <option value="22">23</option>
+            <option value="23">24</option>
+            <option value="24">25</option>
+            <option value="25">26</option>
+            <option value="26">27</option>
+            <option value="27">28</option>
+            <option value="28">29</option>
+            <option value="29">30</option>
+            <option value="30">31</option>
+          </select>
+
+          <label>Year</label>
+          <select
+            value={this.state.endYear}
+            onChange={this.handleDropDownEndYear}
+          >
+            <option value="2017">2018</option>
+            <option value="2018">2019</option>
+            <option value="2019">2020</option>
+          </select>
+
+          <br />
           <label>Hour</label>
           <select
             value={this.state.endTimeHour}
