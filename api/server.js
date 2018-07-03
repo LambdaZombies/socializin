@@ -18,10 +18,10 @@ const server = express();
 // };
 
 // Connect to MongoDB & Database Config
+const db = require('../config/keys').mongoURI;
+
 mongoose.Promise = global.Promise;
-mongoose
-  // .connect(process.env.MONGOLAB_MAROON_URI)
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/socializin")
+mongoose.connect(db || "mongodb://localhost/socializin");
   .then(function(db) {
     console.log("All your dbs are belong to us!");
     server.listen(port, function() {
