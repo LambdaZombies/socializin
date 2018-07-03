@@ -20,6 +20,7 @@
     "react-responsive-modal": "^3.0.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "reactstrap": "^6.2.0",
     "rome": "^2.1.22"
   },
   "scripts": {

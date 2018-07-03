@@ -82,6 +82,7 @@ class AccountCreation extends Component {
       mobileNumber: this.state.phoneNumber,
       acceptTexts: this.state.acceptText,
       acceptEmails: this.state.acceptEmail,
+      tokenId: this.state.tokenId,
     };
     console.log("sending to db:", userInfo);
     axios

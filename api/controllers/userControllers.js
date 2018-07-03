@@ -5,9 +5,17 @@ const User = require("../models/User");
 const STATUS_USER_ERROR = 422;
 
 const userCreate = (req, res) => {
-  const { name, email, mobileNumber, acceptTexts, acceptEmails } = req.body;
+  const {
+    name,
+    email,
+    mobileNumber,
+    acceptTexts,
+    acceptEmails,
+    tokenId,
+  } = req.body;
   const newUser = new User({
     name,
+    tokenId,
     email,
     mobileNumber,
     acceptTexts,
@@ -64,7 +72,7 @@ const userGetById = (req, res) => {
 };
 
 const userEdit = (req, res) => {
-  console.log("Dashboard");
+  console.log("edit user");
   const {
     name,
     email,
@@ -78,7 +86,8 @@ const userEdit = (req, res) => {
   // edit user details
   // save User
   const { id } = req.params;
-  User.findById(id)
+  console.log(req.body, id);
+  User.findOne({ tokenId: id })
     .then(User => {
       if (User === null) throw new Error();
       if (firstName) User.name = name;
@@ -86,13 +95,15 @@ const userEdit = (req, res) => {
       if (mobilePhone) User.mobilePhone = mobilePhone;
       if (acceptTexts) User.acceptTexts = acceptTexts;
       if (acceptEmails) User.acceptEmails = acceptEmails;
-      if (groups) User.groups = groups;
-      if (events) User.events = events;
+      if (groups) User.groups.push(groups);
+      if (events) User.events.push(events);
       User.save(User, (err, saveduser) => {
         if (err) {
           res.status(500).json(err);
+          console.log(err);
           return;
         }
+        console.log(saveduser);
         res.status(200).json(saveduser);
       });
     })
