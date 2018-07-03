@@ -17,8 +17,11 @@ const server = express();
 //   optionsSuccessStatus: 204,
 // };
 
+// Connect to database
+const db = require('../config/keys').mongoURI;
+
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/loanie");
+mongoose.connect(db || "mongodb://localhost/socializin");
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
