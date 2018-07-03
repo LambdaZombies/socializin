@@ -39,7 +39,7 @@ const ColoredDateCellWrapper = ({ children, value }) =>
   React.cloneElement(Children.only(children), {
     style: {
       ...children.style,
-      backgroundColor: value <= CURRENT_DATE ? 'lightblue' : 'lightgreen'
+      backgroundColor: value <= CURRENT_DATE ? 'lightblue' : 'lightyellow'
     }
   });
 
