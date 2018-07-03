@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Group = require('../models/Group');
 
 const groupCreate = (req, res) => {
-  const { name, users } = req.body;
+  const { groupName, users } = req.body;
   const newGroup = new Group({
-    name,
+    groupName,
     users
   });
   newGroup.save((err, savedGroup) => {
@@ -18,6 +18,11 @@ const groupCreate = (req, res) => {
     res.json(savedGroup);
   });
 };
+
+// const addUserToGroup = (req, res) => {
+//   const { id } = req.user.id;
+  
+// }
 
 const getGroup = (req, res) => {
   const { id } = req.params.id;
