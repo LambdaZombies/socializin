@@ -5,6 +5,7 @@ import Navbar from './Components/navbar';
 import Footer from './Components/footer';
 import './App.css';
 
+
 class App extends Component {
   render() {
     return (

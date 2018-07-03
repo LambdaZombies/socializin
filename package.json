@@ -1,7 +1,23 @@
 {
+<<<<<<< HEAD
   "name": "client",
   "version": "0.1.0",
   "private": true,
+=======
+  "name": "socializin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "cd client && npm install && npm run build",
+    "client": "cd client && npm install && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+>>>>>>> af7c0bed16d3ab7ae7d6f6f2a76673870c088ae4
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
