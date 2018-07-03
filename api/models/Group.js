@@ -12,10 +12,12 @@ const GroupSchema = new Schema({
       ref: 'User'
     }
   ],
-  events: {
-    type: Schema.Types.ObjectId,
-    ref: 'Events'
-  }
+  events: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Events'
+    }
+  ]
 });
 
 module.exports = mongoose.model('Groups', GroupSchema);
