@@ -1,63 +1,44 @@
 import React from "react";
-
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 
 const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
-  };
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement('#yourAppElement')
 
 class Schedule extends React.Component {
-    constructor() {
-        super();
-    
-        this.state = {
-          modalIsOpen: false
-        };
-    
-        this.openModal = this.openModal.bind(this);
-        this.afterOpenModal = this.afterOpenModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-      }
-    
-      openModal() {
-        this.setState({modalIsOpen: true});
-      }
-    
-      afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        this.subtitle.style.color = '#f00';
-      }
-    
-      closeModal() {
-        this.setState({modalIsOpen: false});
-      }
-    
-    // buttonClicked() {
-    //     console.log('Button was clicked!')
-    // }
+  state = {
+    open: false,
+  };
 
-    render() {
-        return (<div>
-            <button onClick={this.openModal}>Daily</button>
-            <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
+  openModal = () => {
+    this.setState({ open: true });
+  };
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+  closeModal = () => {
+    this.setState({ open: false });
+  };
+
+  // buttonClicked() {
+  //     console.log('Button was clicked!')
+  // }
+
+  render() {
+    const { open } = this.state;
+    return (
+      <div>
+        <button onClick={this.openModal}>Daily</button>
+        <Modal open={open} onClose={this.closeModal} center>
+          <h2 ref={subtitle => (this.subtitle = subtitle)}>Hello</h2>
           <button onClick={this.closeModal}>close</button>
           <div>I am a modal</div>
           <form>
@@ -68,10 +49,9 @@ class Schedule extends React.Component {
             <button>the modal</button>
           </form>
         </Modal>
-            {/* <button onClick={this.buttonClicked}>Weekly</button> */}
-
-        </div>);
-    }
+        {/* <button onClick={this.buttonClicked}>Weekly</button> */}
+      </div>
+    );
+  }
 }
-
 export default Schedule;
