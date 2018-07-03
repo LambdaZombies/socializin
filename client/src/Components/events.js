@@ -16,11 +16,12 @@ export default [
     start: new Date(2018, 8, 13, 0, 0, 0),
     end: new Date(2018, 8, 20, 0, 0, 0),
   },
-
+  
   {
     title: "DTS ENDS",
     start: new Date(2018, 6, 6, 0, 0, 0),
     end: new Date(2018, 6, 13, 0, 0, 0),
+    isMine: true
   },
 
   {
@@ -66,6 +67,7 @@ export default [
     title: "Birthday Party",
     start: new Date(2018, 6, 13, 7, 0, 0),
     end: new Date(2018, 6, 13, 10, 30, 0),
+    isFriend: true
   },
   {
     title: "Birthday Party 2",
@@ -81,6 +83,7 @@ export default [
     title: "Late Night Event",
     start: new Date(2018, 6, 17, 19, 30, 0),
     end: new Date(2018, 6, 18, 2, 0, 0),
+    isFriend: true
   },
   {
     title: "Multi-day Event",

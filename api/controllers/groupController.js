@@ -15,7 +15,7 @@ const groupCreate = (req, res) => {
       return;
     }
     console.log(savedGroup);
-    res.json(savedGroup);
+    res.status(200).json(savedGroup);
   });
 };
 
