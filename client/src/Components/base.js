@@ -1,6 +1,5 @@
 // local development
-const base =
-  "https://hardcore-saha-1bdda5.netlify.com" || "http://localhost:3030";
+const base = "https://socializin.herokuapp.com";
 
 // heroku
 // const base = 'https://loanie.herokuapp.com';
