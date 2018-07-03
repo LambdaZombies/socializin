@@ -7,6 +7,8 @@ export default class Navbar extends Component {
     super();
     this.state = {
       tokenId: sessionStorage.getItem("tokenId"),
+      name: sessionStorage.getItem("name"),
+      imgSource: sessionStorage.getItem("photoUrl"),
     };
   }
 
@@ -49,6 +51,14 @@ export default class Navbar extends Component {
             Logout
           </a>
         </li>
+        <Link to="/settings">
+          <img
+            className="rounded-circle"
+            src={this.state.imgSource}
+            alt={this.state.name}
+            style={{ width: "25px", marginRight: "5px" }}
+          />
+        </Link>
       </ul>
     );
 

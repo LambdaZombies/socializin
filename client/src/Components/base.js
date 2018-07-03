@@ -1,5 +1,5 @@
 // local development
-const base = 'http://localhost:3030';
+const base = "https://socializin.netlify.com/" || "http://localhost:3030";
 
 // heroku
 // const base = 'https://loanie.herokuapp.com';

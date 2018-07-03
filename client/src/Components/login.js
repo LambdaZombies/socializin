@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import axios from "axios";
 import Navbar from "./navbar";
 import firebase from "./firebase";
 import "../CSS/login.css";
@@ -26,6 +24,16 @@ const uiConfig = {
     signInSuccess: credential => {
       firebase.auth().onAuthStateChanged(user => {
         sessionStorage.setItem("credential", credential);
+        const defImg = "https://s3.us-east-2.amazonaws.com/djangorpg/photo.png";
+        if (
+          user.photoURL === null ||
+          user.photoUrl === "" ||
+          user.photoURL === undefined
+        ) {
+          sessionStorage.setItem("photoUrl", defImg);
+        } else {
+          sessionStorage.setItem("photoUrl", user.photoURL);
+        }
         console.log("got the ID!!", user.uid);
         console.log("firebase user", user);
 
