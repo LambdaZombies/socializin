@@ -7,12 +7,6 @@ import Group from './group';
 import Navbar from './navbar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-// {
-//   title: "DTS STARTS",
-//   start: new Date(2018, 8, 13, 0, 0, 0),
-//   end: new Date(2018, 8, 20, 0, 0, 0),
-// },
-
 // const eventStyleGetter = (event, start, end, isSelected) => {
 //   console.log('EVENT!!', event);
 //   var backgroundColor = '#' + event.hexColor;
@@ -39,7 +33,7 @@ const ColoredDateCellWrapper = ({ children, value }) =>
   React.cloneElement(Children.only(children), {
     style: {
       ...children.style,
-      backgroundColor: value <= CURRENT_DATE ? 'lightblue' : 'lightgreen'
+      backgroundColor: value <= CURRENT_DATE ? 'lightblue' : 'lightyellow'
     }
   });
 
@@ -65,7 +59,7 @@ const calendar = () => (
           if (event.isMine) {
             newStyle.backgroundColor = '#A5F37E';
           }
-          
+
           if (event.isFriend) {
             newStyle.backgroundColor = '#76D5E8';
           }
