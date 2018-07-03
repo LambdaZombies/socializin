@@ -39,7 +39,7 @@ const ColoredDateCellWrapper = ({ children, value }) =>
 
 const calendar = () => (
   <div>
-    <div style={{ height: 700, margin: '10px' }}>
+    <div style={{ height: 700}}>
       <Navbar />
       <BigCalendar
         events={events}
