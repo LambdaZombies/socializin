@@ -12,12 +12,19 @@ const customStyles = {
   },
 };
 
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-// Modal.setAppElement('#yourAppElement')
-
 class Schedule extends React.Component {
   state = {
+    endTime: "",
     open: false,
+    startTime: "",
+  };
+
+  handleDropDownStartTime = e => {
+    this.setState({ startTime: e.target.value });
+  };
+
+  handleDropDownEndTime = e => {
+    this.setState({ endTime: e.target.value });
   };
 
   openModal = () => {
@@ -28,10 +35,6 @@ class Schedule extends React.Component {
     this.setState({ open: false });
   };
 
-  // buttonClicked() {
-  //     console.log('Button was clicked!')
-  // }
-
   render() {
     const { open } = this.state;
     return (
@@ -39,7 +42,40 @@ class Schedule extends React.Component {
         <button onClick={this.openModal}>Daily</button>
         <Modal open={open} onClose={this.closeModal} center>
           <h2 ref={subtitle => (this.subtitle = subtitle)}>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
+          <select
+            value={this.state.startTime}
+            onChange={this.handleDropDownStartTime}
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <select
+            value={this.state.endTime}
+            onChange={this.handleDropDownEndTime}
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
           <div>I am a modal</div>
           <form>
             <input />
