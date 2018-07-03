@@ -1,77 +1,78 @@
-import React from "react";
-import Modal from "react-responsive-modal";
-import moment from "moment";
-import axios from "axios";
-import { Button, Input } from "reactstrap";
-import base from "./base";
+import React from 'react';
+import Modal from 'react-responsive-modal';
+import moment from 'moment';
+import axios from 'axios';
+import { Button, Input } from 'reactstrap';
+import base from './base';
 // import DatePicker from 'react-datepicker';
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
 };
 
 class Schedule extends React.Component {
   state = {
     open: false,
-    startMonth: "01",
-    startDay: "01",
-    startYear: "2018",
-    startTimeHour: "01",
-    startTimeMin: "00",
-    startAMPM: "AM",
-    endMonth: "01",
-    endDay: "01",
-    endYear: "2018",
-    endTimeHour: "01",
-    endTimeMin: "00",
-    endAMPM: "AM",
-    title: "",
+    startMonth: '',
+    startDay: '',
+    startYear: '',
+    startHour: '',
+    startTimeMin: '',
+    startAMPM: 'AM',
+    endMonth: '',
+    endDay: '',
+    endYear: '',
+    endHour: '',
+    endTimeMin: '',
+    endAMPM: 'AM',
+    title: '',
     allDay: false,
     allWeek: false,
-    desc: "",
-    user: "",
-    id: sessionStorage.getItem("tokenId"),
+    desc: '',
+    user: '',
+    id: sessionStorage.getItem('tokenId')
   };
   getUser = () => {
     axios
-      .post(`${base}/user/${this.state.id}`)
+      .post(`https://socializin.herokuapp.com/user/${this.state.id}`)
       .then(res => {
         console.log(res);
         this.setState({ user: res.data });
-        console.log("User retrieved successfully!");
+        console.log('User retrieved successfully!');
       })
       .catch(err => {
-        console.log("error getting user", err);
+        console.log('error getting user', err);
         throw err;
       });
   };
 
   submitEvent = () => {
     this.getUser();
-    console.log("get user", this.state.user);
-    console.log("get token and submit event", this.state.id);
+    console.log('get user', this.state.user);
+    console.log('get token and submit event', this.state.id);
     let startHour, endHour;
-    if (this.state.startAMPM === "PM")
+    if (this.state.startAMPM === 'PM')
       startHour = this.state.startTimeHour + 12;
-    if (this.state.endAMPM === "PM") endHour = this.state.endTimeHour + 12;
-    console.log("state", this.state);
+    if (this.state.endAMPM === 'PM') endHour = this.state.endTimeHour + 12;
+    console.log('state', this.state);
     let startDate = new Date(
-      this.state.startYear,
-      this.state.startMonth,
-      this.state.startDay,
-      this.state.startHour,
-      this.state.startTimeMin,
+      Number(this.state.startYear),
+      Number(this.state.startMonth),
+      Number(this.state.startDay),
+      Number(this.state.startHour),
+      0,
       0
     );
-    moment(startDate).format();
+    
     console.log(startDate);
+
     let endDate = new Date(
       Number(this.state.endYear),
       Number(this.state.endMonth),
@@ -80,8 +81,9 @@ class Schedule extends React.Component {
       Number(this.state.endTimeMin),
       0
     );
-    moment(endDate).format();
+
     console.log(endDate);
+    
     const body = {
       events: [
         {
@@ -90,20 +92,20 @@ class Schedule extends React.Component {
           allWeek: this.state.allWeek,
           start: moment().toDate(),
           end: moment().toDate(),
-          desc: this.state.desc,
-        },
-      ],
+          desc: this.state.desc
+        }
+      ]
     };
     let start = new Date(2018, 6, 13, 7, 0, 0);
 
     moment(start).format();
 
     console.log(start);
-    console.log("req body", body);
+    console.log('req body', body);
     axios
-      .post(`${base}/user/${this.state.id}`, body)
+      .post(`https://socializin.herokuapp.com/user/${this.state.id}`, body)
       .then(() => {
-        console.log("Event created successfully!");
+        console.log('Event created successfully!');
       })
       .catch(err => {
         throw err;
@@ -190,14 +192,13 @@ class Schedule extends React.Component {
           />
           <br />
           {/* <DatePicker selected={this.state.startDate} onChange={this.handleInputChange}/> */}
-          <h4 style={{ textAlign: "center" }}>
+          <h4 style={{ textAlign: 'center' }}>
             <b>Start</b>
           </h4>
           <label>Month</label>
           <select
             value={this.state.startMonth}
-            onChange={this.handleDropDownStartMonth}
-          >
+            onChange={this.handleDropDownStartMonth}>
             <option value="01">Jan</option>
             <option value="2">Feb</option>
             <option value="3">Mar</option>
@@ -214,8 +215,7 @@ class Schedule extends React.Component {
           <label>Day</label>
           <select
             value={this.state.startDay}
-            onChange={this.handleDropDownStartDay}
-          >
+            onChange={this.handleDropDownStartDay}>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -251,8 +251,7 @@ class Schedule extends React.Component {
           <label>Year</label>
           <select
             value={this.state.startYear}
-            onChange={this.handleDropDownStartYear}
-          >
+            onChange={this.handleDropDownStartYear}>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
@@ -261,8 +260,7 @@ class Schedule extends React.Component {
           <label>Hour</label>
           <select
             value={this.state.startTimeHour}
-            onChange={this.handleDropDownStartTimeHour}
-          >
+            onChange={this.handleDropDownStartTimeHour}>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -279,28 +277,25 @@ class Schedule extends React.Component {
           <label>Minute</label>
           <select
             value={this.state.startTimeMin}
-            onChange={this.handleDropDownStartTimeMin}
-          >
+            onChange={this.handleDropDownStartTimeMin}>
             <option value="0">00</option>
             <option value="30">30</option>
           </select>
           <label>AM/PM</label>
           <select
             value={this.state.startAMPM}
-            onChange={this.handleDropDownStartTimeAMPM}
-          >
+            onChange={this.handleDropDownStartTimeAMPM}>
             <option value="AM">AM</option>
             <option value="PM">PM</option>
           </select>
           <br />
-          <h4 style={{ textAlign: "center" }}>
+          <h4 style={{ textAlign: 'center' }}>
             <b>End</b>
           </h4>
           <label>Month</label>
           <select
             value={this.state.endMonth}
-            onChange={this.handleDropDownEndMonth}
-          >
+            onChange={this.handleDropDownEndMonth}>
             <option value="01">Jan</option>
             <option value="2">Feb</option>
             <option value="3">Mar</option>
@@ -317,8 +312,7 @@ class Schedule extends React.Component {
           <label>Day</label>
           <select
             value={this.state.endDay}
-            onChange={this.handleDropDownEndDay}
-          >
+            onChange={this.handleDropDownEndDay}>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -355,8 +349,7 @@ class Schedule extends React.Component {
           <label>Year</label>
           <select
             value={this.state.endYear}
-            onChange={this.handleDropDownEndYear}
-          >
+            onChange={this.handleDropDownEndYear}>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
@@ -366,8 +359,7 @@ class Schedule extends React.Component {
           <label>Hour</label>
           <select
             value={this.state.endTimeHour}
-            onChange={this.handleDropDownEndTimeHour}
-          >
+            onChange={this.handleDropDownEndTimeHour}>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -384,20 +376,18 @@ class Schedule extends React.Component {
           <label>Minute</label>
           <select
             value={this.state.endTimeMin}
-            onChange={this.handleDropDownEndTimeMin}
-          >
+            onChange={this.handleDropDownEndTimeMin}>
             <option value="0">00</option>
             <option value="30">30</option>
           </select>
           <label>AM/PM</label>
           <select
             value={this.state.endAMPM}
-            onChange={this.handleDropDownEndTimeAMPM}
-          >
+            onChange={this.handleDropDownEndTimeAMPM}>
             <option value="AM">AM</option>
             <option value="PM">PM</option>
           </select>
-          <h4 style={{ textAlign: "center" }}>
+          <h4 style={{ textAlign: 'center' }}>
             <b>Description</b>
           </h4>
           <Input
