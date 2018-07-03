@@ -6,7 +6,7 @@ import App from "./App";
 import Calendar from "./Components/calendar";
 import Login from "./Components/login";
 import CreateAccount from "./Components/createAccount";
-// import Settings from './Components/Settings';
+import Settings from "./Components/settings";
 // import LoanCreate from './Components/LoanCreate';
 // import EditLoan from './Components/EditLoan';
 // import AddAssignment from './Components/AddAssignment';
@@ -29,6 +29,7 @@ ReactDOM.render(
       <Route path="/calendar" component={Calendar} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={CreateAccount} />
+      <Route path="/settings" component={Settings} />
     </div>
   </Router>,
   document.getElementById("root")

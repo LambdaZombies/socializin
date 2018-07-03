@@ -23,6 +23,16 @@ const uiConfig = {
         sessionStorage.setItem("tokenId", user.uid);
         sessionStorage.setItem("email", user.email);
         sessionStorage.setItem("name", user.displayName);
+        const defImg = "https://s3.us-east-2.amazonaws.com/djangorpg/photo.png";
+        if (
+          user.photoURL === null ||
+          user.photoUrl === "" ||
+          user.photoURL === undefined
+        ) {
+          sessionStorage.setItem("photoUrl", defImg);
+        } else {
+          sessionStorage.setItem("photoUrl", user.photoURL);
+        }
       });
       window.location.replace("http://localhost:3000/signup");
     },

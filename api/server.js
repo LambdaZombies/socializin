@@ -21,7 +21,7 @@ const server = express();
 mongoose.Promise = global.Promise;
 mongoose
   // .connect(process.env.MONGOLAB_MAROON_URI)
-  .connect("mongodb://TravisJ:Cheese21.@ds125031.mlab.com:25031/socializin")
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/socializin")
   .then(function(db) {
     console.log("All your dbs are belong to us!");
     server.listen(port, function() {
@@ -48,7 +48,3 @@ server.use((req, res, next) => {
 
 // Routes
 routes(server);
-
-// server.listen(port, () => {
-//   console.log(`server listening on port ${port}`);
-// });
