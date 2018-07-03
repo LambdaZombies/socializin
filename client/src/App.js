@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from './Components/navbar';
+import Footer from './Components/footer';
 import './App.css';
 
 class App extends Component {
@@ -16,14 +17,14 @@ class App extends Component {
                 <div className="col-md-12 text-center">
                   <h1 className="display-3 mb-4">Socializin</h1>
                   <p className="lead">
-                    {' '}
+                    {" "}
                     Connect with your friends through their busy schedules.
                   </p>
                   <hr />
-                  <Link to="/" className="btn btn-lg btn-info mr-2">
+                  <Link to="/signup" className="btn btn-lg btn-info mr-2">
                     Sign Up
                   </Link>
-                  <Link to="/" className="btn btn-lg btn-light">
+                  <Link to="/login" className="btn btn-lg btn-light">
                     Login
                   </Link>
                 </div>
@@ -31,6 +32,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

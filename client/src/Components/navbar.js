@@ -1,54 +1,84 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Calendar from './calendar';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import firebase from "./firebase";
 
-class Navbar extends Component {
+export default class Navbar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tokenId: sessionStorage.getItem("tokenId"),
+      name: sessionStorage.getItem("name"),
+      imgSource: sessionStorage.getItem("photoUrl"),
+    };
+  }
+
+  logout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("signed out successfully!");
+        sessionStorage.clear();
+        window.location = "/";
+      })
+      .catch(error => {
+        console.log("error signing out", error);
+      });
+  };
+
+  login() {
+    console.log(this.state);
+    window.location = "/login";
+  }
+
   render() {
-    // const authLinks = (
-    // <ul className="navbar-nav ml-auto">
-    //   <li className="nav-item">
-    //     <Link className="nav-link" to="/">
-    //       Calander
-    //     </Link>
-    //   </li>
-    //   <li className="nav-item">
-    //     <Link className="nav-link" to="/">
-    //       Dashboard
-    //     </Link>
-    //   </li>
-    //   <li className="nav-item">
-    //     <a
-    //       href=""
-    //       onClick={this.onLogoutClick.bind(this)}
-    //       className="nav-link"
-    //     >
-    //       <img
-    //         className="rounded-circle"
-    //         src={user.avatar}
-    //         alt={user.name}
-    //         style={{ width: "25px", marginRight: "5px" }}
-    //         title="You must have an uploaded image to display an avatar"
-    //       />
-    //       Logout
-    //     </a>
-    //   </li>
-    // </ul>
-    // );
+    const token = this.state.tokenId;
+    let auth;
+    const authLinks = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/Calendar">
+            Calendar
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/">
+            Dashboard
+          </Link>
+        </li>
+        <li className="nav-item">
+          <a href="" onClick={this.logout} className="nav-link">
+            Logout
+          </a>
+        </li>
+        <Link to="/settings">
+          <img
+            className="rounded-circle"
+            src={this.state.imgSource}
+            alt={this.state.name}
+            style={{ width: "25px", marginRight: "5px" }}
+          />
+        </Link>
+      </ul>
+    );
 
-    // const guestLinks = (
-    //   <ul className="navbar-nav ml-auto">
-    //     <li className="nav-item">
-    //       <Link className="nav-link" to="/">
-    //         Sign Up
-    //       </Link>
-    //     </li>
-    //     <li className="nav-item">
-    //       <Link className="nav-link" to="/">
-    //         Login
-    //       </Link>
-    //     </li>
-    //   </ul>
-    // );
+    const guestLinks = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/">
+            Sign Up
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
+        </li>
+      </ul>
+    );
+    if (token === null || token === undefined || token === "")
+      auth = guestLinks;
+    else auth = authLinks;
 
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
@@ -60,36 +90,13 @@ class Navbar extends Component {
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
-            data-target="#mobile-nav">
+            data-target="#mobile-nav"
+          >
             <span className="navbar-toggler-icon" />
           </button>
-
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  {' '}
-                  Groups
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/Calendar">
-                Calander
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Dashboard
-              </Link>
-            </li>
-          </ul>
+          {auth}
         </div>
       </nav>
     );
   }
 }
-
-export default Navbar;

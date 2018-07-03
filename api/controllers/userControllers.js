@@ -5,49 +5,23 @@ const User = require("../models/User");
 const STATUS_USER_ERROR = 422;
 
 const userCreate = (req, res) => {
-  const {
-    name,
-    email,
-    phoneNumber,
-    image,
-    groups,
-    events,
-  } = req.body;
+  const { name, email, mobileNumber, acceptTexts, acceptEmails } = req.body;
   const newUser = new User({
     name,
     email,
-    phoneNumber,
-    image,
-    groups,
-    events,
+    mobileNumber,
+    acceptTexts,
+    acceptEmails,
   });
   newUser.save((err, savedUser) => {
     if (err) {
+      console.log(err);
       res.status(500).json(JSON.stringify(err));
       return;
     }
+    console.log(savedUser);
     res.json(savedUser);
   });
-};
-
-const userLogin = (req, res) => {
-  const { email, password } = req.body;
-  User.findOne({ email, password })
-    .select("email")
-    .exec()
-    .then(user => {
-      if (user === null) {
-        throw new Error();
-      }
-      res.json(user);
-    })
-    .catch(err => res.status(422).json({ error: err.message }));
-};
-
-const userToken = (req, res) => {
-  const { token } = req.body;
-  console.log(token);
-  res.json("Authenticated!");
 };
 
 const usersGetAll = (req, res) => {
@@ -90,17 +64,15 @@ const userGetById = (req, res) => {
 };
 
 const userEdit = (req, res) => {
-  console.log("loan edit");
+  console.log("Dashboard");
   const {
-    firstName,
-    lastName,
-    password,
-    userType,
+    name,
     email,
-    mobilePhone,
+    mobileNumber,
     acceptTexts,
     acceptEmails,
-    subscriptionEndDate,
+    groups,
+    events,
   } = req.body;
   // find a single User
   // edit user details
@@ -109,15 +81,13 @@ const userEdit = (req, res) => {
   User.findById(id)
     .then(User => {
       if (User === null) throw new Error();
-      if (firstName) User.firstName = firstName;
-      if (lastName) User.lastName = lastName;
-      if (password) User.password = password;
-      if (userType) User.userType = userType;
+      if (firstName) User.name = name;
       if (email) User.email = email;
       if (mobilePhone) User.mobilePhone = mobilePhone;
       if (acceptTexts) User.acceptTexts = acceptTexts;
       if (acceptEmails) User.acceptEmails = acceptEmails;
-      if (subscriptionEndDate) User.subscriptionEndDate = subscriptionEndDate;
+      if (groups) User.groups = groups;
+      if (events) User.events = events;
       User.save(User, (err, saveduser) => {
         if (err) {
           res.status(500).json(err);
@@ -126,15 +96,13 @@ const userEdit = (req, res) => {
         res.json(saveduser);
       });
     })
-    .catch(err => res.status(422).json({ error: "No Loan!" }));
+    .catch(err => res.status(422).json({ error: "No User!" }));
 };
 
 module.exports = {
-  userLogin,
   userCreate,
   usersGetAll,
   userDelete,
   userGetById,
   userEdit,
-  userToken,
 };
