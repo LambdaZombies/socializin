@@ -10,12 +10,12 @@ const server = express();
 
 // let token = token;
 
-// const corsOptions = {
-//   origin: "*",
-//   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
-//   preflightContinue: false,
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: "*",
+  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
 
 // Connect to MongoDB & Database Config
 const db = require("../config/keys").mongoURI;
