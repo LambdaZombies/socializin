@@ -19,8 +19,8 @@ const ColoredDateCellWrapper = ({ children, value }) =>
       backgroundColor: value < CURRENT_DATE ? "lightgreen" : "lightblue",
     },
   });
-
-console.log(events);
+// console.log(Object.keys(ColoredDateCellWrapper));
+// console.log(events);
 
 const calendar = () => (
   <div>
