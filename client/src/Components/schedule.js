@@ -1,23 +1,75 @@
 import React from "react";
-// import events from "./events";
-// import BigCalendar from "react-big-calendar";
-// import moment from "moment";
-// import "react-big-calendar/lib/css/react-big-calendar.css";
 
-// moment.locale("en-GB");
-// BigCalendar.momentLocalizer(moment);
+import Modal from "react-modal";
 
-// const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
+
+// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+// Modal.setAppElement('#yourAppElement')
 
 class Schedule extends React.Component {
-    buttonClicked() {
-        console.log('Button was clicked!')
-    }
+    constructor() {
+        super();
+    
+        this.state = {
+          modalIsOpen: false
+        };
+    
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+      }
+    
+      openModal() {
+        this.setState({modalIsOpen: true});
+      }
+    
+      afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        this.subtitle.style.color = '#f00';
+      }
+    
+      closeModal() {
+        this.setState({modalIsOpen: false});
+      }
+    
+    // buttonClicked() {
+    //     console.log('Button was clicked!')
+    // }
 
     render() {
         return (<div>
-            <button onClick={this.buttonClicked}>Daily</button>
-            <button onClick={this.buttonClicked}>Weekly</button>
+            <button onClick={this.openModal}>Daily</button>
+            <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+
+          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+          <button onClick={this.closeModal}>close</button>
+          <div>I am a modal</div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+        </Modal>
+            {/* <button onClick={this.buttonClicked}>Weekly</button> */}
+
         </div>);
     }
 }

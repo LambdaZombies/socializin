@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Calendar from './calendar';
 
 class Navbar extends Component {
   render() {
@@ -77,7 +76,7 @@ class Navbar extends Component {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link className="nav-link" to="/Calendar">
-                Calendar
+                Calander
               </Link>
             </li>
             <li className="nav-item">
