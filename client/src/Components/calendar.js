@@ -2,7 +2,6 @@ import React from "react";
 import events from "./events";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
-import Modal from "react-modal";
 import Schedule from "./schedule";
 import Navbar from "./navbar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
