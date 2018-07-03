@@ -18,13 +18,13 @@ const corsOptions = {
 };
 
 // Connect to MongoDB & Database Config
-const db = require("../config/keys").mongoURI;
+// const db = require("../config/keys").mongoURI;
 
 mongoose.Promise = global.Promise;
 mongoose
   .connect("mongodb://Testy:abc123@ds125031.mlab.com:25031/socializin")
   // .connect("mongodb://localhost:27017/socializin")
-  .then(function(db) {
+  .then(function() {
     console.log("All your dbs are belong to us!");
     server.listen(port, function() {
       console.log("server running on port " + port);
