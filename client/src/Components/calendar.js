@@ -3,6 +3,7 @@ import events from "./events";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import Schedule from "./schedule";
+import Group from "./group";
 import Navbar from "./navbar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -38,6 +39,7 @@ const calendar = () => (
         }}
       />
       <Schedule />
+      <Group />
     </div>
   </div>
 );
