@@ -21,7 +21,7 @@ const server = express();
 const db = require('../config/keys').mongoURI;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(db || "mongodb://localhost/socializin");
+mongoose.connect('mongodb://Testy:abc123@ds125031.mlab.com:25031/socializin' || "mongodb://localhost/socializin")
   .then(function(db) {
     console.log("All your dbs are belong to us!");
     server.listen(port, function() {
