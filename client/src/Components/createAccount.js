@@ -34,7 +34,7 @@ const uiConfig = {
           sessionStorage.setItem("photoUrl", user.photoURL);
         }
       });
-      window.location.replace("http://localhost:3000/signup");
+      window.location = "/signup";
     },
   },
   // credentialHelper: firebase.auth.CredentialHelper.NONE,
