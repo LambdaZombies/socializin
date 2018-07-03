@@ -17,13 +17,25 @@ const server = express();
 //   optionsSuccessStatus: 204,
 // };
 
+// Connect to MongoDB & Database Config
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/loanie");
+mongoose
+  // .connect(process.env.MONGOLAB_MAROON_URI)
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/socializin")
+  .then(function(db) {
+    console.log("All your dbs are belong to us!");
+    server.listen(port, function() {
+      console.log("server running on port " + port);
+    });
+  })
+  .catch(function(err) {
+    console.log("DB connection failed..", err.message);
+  });
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-// server.use(cors());
+server.use(cors());
 
 server.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -34,8 +46,5 @@ server.use((req, res, next) => {
   next();
 });
 
+// Routes
 routes(server);
-
-server.listen(port, () => {
-  console.log(`server listening on port ${port}`);
-});
