@@ -35,7 +35,7 @@ export default class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/Calendar">
             Calendar
           </Link>
         </li>
