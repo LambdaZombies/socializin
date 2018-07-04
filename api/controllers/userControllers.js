@@ -59,14 +59,25 @@ const userDelete = (req, res) => {
     .catch(err => res.status(422).json({ error: "No User!" }));
 };
 
+const userGetByToken = (req, res) => {
+  // find a single User
+  const { id } = req.params;
+  console.log("TOKENid", id);
+  User.findOne({ tokenId: id })
+    .then(User => {
+      res.status(200).json(User);
+      console.log("user", User);
+    })
+    .catch(err => res.status(422).json({ error: "No User!" }));
+};
+
 const userGetById = (req, res) => {
   // find a single User
   const { id } = req.params;
   console.log("id", id);
-  User.findById(id)
+  User.findById({ id })
     .then(User => {
-      if (User === null) throw new Error();
-      else res.status(200).json(User);
+      res.status(200).json(User);
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
 };
@@ -103,11 +114,51 @@ const userEdit = (req, res) => {
           console.log(err);
           return;
         }
-        console.log(saveduser);
+        console.log("success", saveduser);
         res.status(200).json(saveduser);
       });
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
+};
+
+const addEvent = (req, res) => {
+  const { title, allDay, allWeek, start, end, desc, id } = req.body;
+  User.update(
+    { _id: id },
+    {
+      $push: {
+        events: {
+          title: title,
+          allDay: allDay,
+          allWeek: allWeek,
+          start: start,
+          end: end,
+          desc: desc,
+        },
+      },
+    },
+    { safe: true, upsert: true },
+    (err, doc) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json(err);
+      } else {
+        res.status(200).json(doc);
+        console.log("success", doc);
+      }
+    }
+  );
+};
+
+const getEvents = (req, res) => {
+  const { id } = req.body;
+  console.log("req.body", id);
+  User.findOne({ tokenId: id })
+    .then(user => {
+      console.log(user);
+      res.status(200).json(user.events);
+    })
+    .catch(err => res.status(422).json(err));
 };
 
 module.exports = {
@@ -116,4 +167,7 @@ module.exports = {
   userDelete,
   userGetById,
   userEdit,
+  userGetByToken,
+  addEvent,
+  getEvents,
 };

@@ -39,22 +39,8 @@ class Schedule extends React.Component {
     user: "",
     id: sessionStorage.getItem("tokenId"),
   };
-  getUser = () => {
-    axios
-      .post(`${base}/user/${this.state.id}`)
-      .then(res => {
-        console.log(res);
-        this.setState({ user: res.data });
-        console.log("User retrieved successfully!");
-      })
-      .catch(err => {
-        console.log("error getting user", err);
-        throw err;
-      });
-  };
 
-  submitEvent = () => {
-    this.getUser();
+  submitEvent = id => {
     console.log("get user", this.state.user);
     console.log("get token and submit event", this.state.id);
     let startHour, endHour;
@@ -66,7 +52,7 @@ class Schedule extends React.Component {
       this.state.startYear,
       this.state.startMonth,
       this.state.startDay,
-      this.state.startHour,
+      this.state.startTimeHour,
       this.state.startTimeMin,
       0
     );
@@ -76,32 +62,24 @@ class Schedule extends React.Component {
       Number(this.state.endYear),
       Number(this.state.endMonth),
       Number(this.state.endDay),
-      Number(this.state.endHour),
+      Number(this.state.endTimeHour),
       Number(this.state.endTimeMin),
       0
     );
     moment(endDate).format();
     console.log(endDate);
     const body = {
-      events: [
-        {
-          title: this.state.title,
-          allDay: this.state.allDay,
-          allWeek: this.state.allWeek,
-          start: moment().toDate(),
-          end: moment().toDate(),
-          desc: this.state.desc,
-        },
-      ],
+      id,
+      title: this.state.title,
+      allDay: this.state.allDay,
+      allWeek: this.state.allWeek,
+      start: startDate,
+      end: endDate,
+      desc: this.state.desc,
     };
-    let start = new Date(2018, 6, 13, 7, 0, 0);
-
-    moment(start).format();
-
-    console.log(start);
-    console.log("req body", body);
+    console.log("event send id", id);
     axios
-      .post(`${base}/user/${this.state.id}`, body)
+      .post(`${base}/event`, body)
       .then(() => {
         console.log("Event created successfully!");
       })
@@ -109,6 +87,24 @@ class Schedule extends React.Component {
         throw err;
       });
     // window.location = "/calendar";
+  };
+
+  getUser = () => {
+    console.log(this.state.id, "id");
+    let userId;
+    axios
+      .get(`${base}/userToken/${this.state.id}`)
+      .then(res => {
+        let userId = res.data._id;
+        this.setState({ user: res.data });
+        console.log("USERID", res.data._id);
+        console.log("User retrieved successfully!");
+        this.submitEvent(userId);
+      })
+      .catch(err => {
+        console.log("error getting user", err);
+        throw err;
+      });
   };
 
   handleDropDownStartMonth = e => {
@@ -410,7 +406,7 @@ class Schedule extends React.Component {
             <br />
             {/* add event name */}
             {/* <input />  */}
-            <Button onClick={this.submitEvent}>Submit</Button>
+            <Button onClick={this.getUser}>Submit</Button>
             {/* <button>stays</button>
             <button>inside</button>
             <button>the modal</button> */}
