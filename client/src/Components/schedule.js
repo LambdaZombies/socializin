@@ -20,17 +20,17 @@ const customStyles = {
 class Schedule extends React.Component {
   state = {
     open: false,
-    startMonth: "01",
-    startDay: "01",
-    startYear: "2018",
-    startTimeHour: "01",
-    startTimeMin: "00",
+    startMonth: "",
+    startDay: "",
+    startYear: "",
+    startHour: "",
+    startTimeMin: "",
     startAMPM: "AM",
-    endMonth: "01",
-    endDay: "01",
-    endYear: "2018",
-    endTimeHour: "01",
-    endTimeMin: "00",
+    endMonth: "",
+    endDay: "",
+    endYear: "",
+    endHour: "",
+    endTimeMin: "",
     endAMPM: "AM",
     title: "",
     allDay: false,
@@ -56,8 +56,9 @@ class Schedule extends React.Component {
       this.state.startTimeMin,
       0
     );
-    moment(startDate).format();
+
     console.log(startDate);
+
     let endDate = new Date(
       Number(this.state.endYear),
       Number(this.state.endMonth),
@@ -66,8 +67,9 @@ class Schedule extends React.Component {
       Number(this.state.endTimeMin),
       0
     );
-    moment(endDate).format();
+
     console.log(endDate);
+
     const body = {
       id,
       title: this.state.title,
