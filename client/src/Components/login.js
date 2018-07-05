@@ -21,9 +21,10 @@ const uiConfig = {
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
   ],
   callbacks: {
-    signInSuccess: credential => {
+    signInSuccessWithAuthResult: authResult => {
       firebase.auth().onAuthStateChanged(user => {
-        sessionStorage.setItem("credential", credential);
+        sessionStorage.setItem("credential", authResult);
+        console.log("auth result!!", authResult);
         const defImg = "https://s3.us-east-2.amazonaws.com/djangorpg/photo.png";
         if (
           user.photoURL === null ||

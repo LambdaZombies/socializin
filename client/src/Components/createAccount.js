@@ -15,7 +15,7 @@ const uiConfig = {
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
   ],
   callbacks: {
-    signInSuccess: () => {
+    signInSuccessWithAuthResult: () => {
       firebase.auth().onAuthStateChanged(user => {
         console.log("got the ID!!", user.uid);
 
@@ -85,15 +85,15 @@ class AccountCreation extends Component {
       tokenId: this.state.tokenId,
     };
     console.log("sending to db:", userInfo);
-    try{
-      await axios.post(`https://socializin.herokuapp.com/newuser`, userInfo)
+    try {
+      await axios.post(`https://socializin.herokuapp.com/newuser`, userInfo);
       // .then(res => {
-        //   console.log("Response from server: ", res);
-        // })
-    } catch(err) {
-        throw err;
-      };
-    };
+      //   console.log("Response from server: ", res);
+      // })
+    } catch (err) {
+      throw err;
+    }
+  };
 
   render() {
     const token = sessionStorage.getItem("tokenId");
