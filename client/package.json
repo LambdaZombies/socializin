@@ -20,7 +20,9 @@
     "react-responsive-modal": "^3.0.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "rome": "^2.1.22"
+    "reactstrap": "^6.2.0",
+    "rome": "^2.1.22",
+    "superagent": "^3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",

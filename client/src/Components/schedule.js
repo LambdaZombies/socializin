@@ -1,5 +1,9 @@
 import React from "react";
 import Modal from "react-responsive-modal";
+import moment from "moment";
+import axios from "axios";
+import { Button, Input } from "reactstrap";
+import base from "./base";
 // import DatePicker from 'react-datepicker';
 
 const customStyles = {
@@ -15,11 +19,94 @@ const customStyles = {
 
 class Schedule extends React.Component {
   state = {
-    endTimeHour: "",
-    endTimeMin: "",
     open: false,
-    startTimeHour: "",
+    startMonth: "",
+    startDay: "",
+    startYear: "",
+    startHour: "",
     startTimeMin: "",
+    startAMPM: "AM",
+    endMonth: "",
+    endDay: "",
+    endYear: "",
+    endHour: "",
+    endTimeMin: "",
+    endAMPM: "AM",
+    title: "",
+    allDay: false,
+    allWeek: false,
+    desc: "",
+    user: "",
+    id: sessionStorage.getItem("tokenId"),
+  };
+
+  submitEvent = id => {
+    console.log("get user", this.state.user);
+    console.log("get token and submit event", this.state.id);
+    let startHour, endHour;
+    if (this.state.startAMPM === "PM")
+      startHour = this.state.startTimeHour + 12;
+    if (this.state.endAMPM === "PM") endHour = this.state.endTimeHour + 12;
+    console.log("state", this.state);
+    let startDate = new Date(
+      this.state.startYear,
+      this.state.startMonth,
+      this.state.startDay,
+      this.state.startTimeHour,
+      this.state.startTimeMin,
+      0
+    );
+
+    console.log(startDate);
+
+    let endDate = new Date(
+      Number(this.state.endYear),
+      Number(this.state.endMonth),
+      Number(this.state.endDay),
+      Number(this.state.endTimeHour),
+      Number(this.state.endTimeMin),
+      0
+    );
+
+    console.log(endDate);
+
+    const body = {
+      id,
+      title: this.state.title,
+      allDay: this.state.allDay,
+      allWeek: this.state.allWeek,
+      start: startDate,
+      end: endDate,
+      desc: this.state.desc,
+    };
+    console.log("event send id", id);
+    axios
+      .post(`${base}/event`, body)
+      .then(() => {
+        console.log("Event created successfully!");
+      })
+      .catch(err => {
+        throw err;
+      });
+    // window.location = "/calendar";
+  };
+
+  getUser = () => {
+    console.log(this.state.id, "id");
+    let userId;
+    axios
+      .get(`${base}/userToken/${this.state.id}`)
+      .then(res => {
+        let userId = res.data._id;
+        this.setState({ user: res.data });
+        console.log("USERID", res.data._id);
+        console.log("User retrieved successfully!");
+        this.submitEvent(userId);
+      })
+      .catch(err => {
+        console.log("error getting user", err);
+        throw err;
+      });
   };
 
   handleDropDownStartMonth = e => {
@@ -78,80 +165,95 @@ class Schedule extends React.Component {
     this.setState({ open: false });
   };
 
+  handleTitle = e => {
+    this.setState({ title: e.target.value });
+  };
+
+  handleDesc = e => {
+    this.setState({ desc: e.target.value });
+  };
+
   render() {
     const { open } = this.state;
     return (
       <div>
-        <button onClick={this.openModal} >Add Event</button>
+        <Button onClick={this.openModal}>Add Event</Button>
         <Modal open={open} onClose={this.closeModal} center>
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>Add Event</h2>
-          <input />
+          <h2 ref={subtitle => (this.subtitle = subtitle)}>New Event Title</h2>
+          <Input
+            type="textarea"
+            name="text"
+            value={this.state.title}
+            onChange={this.handleTitle}
+          />
           <br />
           {/* <DatePicker selected={this.state.startDate} onChange={this.handleInputChange}/> */}
-          <h4 style={{textAlign:"center"}}><b>Start</b></h4>
+          <h4 style={{ textAlign: "center" }}>
+            <b>Start</b>
+          </h4>
           <label>Month</label>
           <select
             value={this.state.startMonth}
             onChange={this.handleDropDownStartMonth}
           >
-            <option value="0">Jan</option>
-            <option value="1">Feb</option>
-            <option value="2">Mar</option>
-            <option value="3">Apr</option>
-            <option value="4">May</option>
-            <option value="5">Jun</option>
-            <option value="6">Jul</option>
-            <option value="7">Aug</option>
-            <option value="8">Sep</option>
-            <option value="9">Oct</option>
-            <option value="10">Nov</option>
-            <option value="11">Dec</option>
+            <option value="01">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">Apr</option>
+            <option value="5">May</option>
+            <option value="6">Jun</option>
+            <option value="7">Jul</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
           </select>
           <label>Day</label>
           <select
             value={this.state.startDay}
             onChange={this.handleDropDownStartDay}
           >
-            <option value="0">01</option>
-            <option value="1">02</option>
-            <option value="2">03</option>
-            <option value="3">04</option>
-            <option value="4">05</option>
-            <option value="5">06</option>
-            <option value="6">07</option>
-            <option value="7">08</option>
-            <option value="8">09</option>
-            <option value="9">10</option>
-            <option value="10">11</option>
-            <option value="11">12</option>
-            <option value="12">13</option>
-            <option value="13">14</option>
-            <option value="14">15</option>
-            <option value="15">16</option>
-            <option value="16">17</option>
-            <option value="17">18</option>
-            <option value="18">19</option>
-            <option value="19">20</option>
-            <option value="20">21</option>
-            <option value="21">22</option>
-            <option value="22">23</option>
-            <option value="23">24</option>
-            <option value="24">25</option>
-            <option value="25">26</option>
-            <option value="26">27</option>
-            <option value="27">28</option>
-            <option value="28">29</option>
-            <option value="29">30</option>
-            <option value="30">31</option>
+            <option value="01">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
           </select>
           <label>Year</label>
           <select
             value={this.state.startYear}
             onChange={this.handleDropDownStartYear}
           >
-            <option value="2017">2018</option>
-            <option value="2018">2019</option>
-            <option value="2019">2020</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
           </select>
           <br />
           <label>Hour</label>
@@ -159,18 +261,18 @@ class Schedule extends React.Component {
             value={this.state.startTimeHour}
             onChange={this.handleDropDownStartTimeHour}
           >
-            <option value="0">01</option>
-            <option value="1">02</option>
-            <option value="2">03</option>
-            <option value="3">04</option>
-            <option value="4">05</option>
-            <option value="5">06</option>
-            <option value="6">07</option>
-            <option value="7">08</option>
-            <option value="8">09</option>
-            <option value="9">10</option>
-            <option value="10">11</option>
-            <option value="11">12</option>
+            <option value="01">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
           </select>
           <label>Minute</label>
           <select
@@ -178,8 +280,7 @@ class Schedule extends React.Component {
             onChange={this.handleDropDownStartTimeMin}
           >
             <option value="0">00</option>
-            <option value="29">30</option>
-          
+            <option value="30">30</option>
           </select>
           <label>AM/PM</label>
           <select
@@ -188,64 +289,65 @@ class Schedule extends React.Component {
           >
             <option value="AM">AM</option>
             <option value="PM">PM</option>
-          
           </select>
           <br />
-          <h4 style={{textAlign:"center"}}><b>End</b></h4>
+          <h4 style={{ textAlign: "center" }}>
+            <b>End</b>
+          </h4>
           <label>Month</label>
           <select
             value={this.state.endMonth}
             onChange={this.handleDropDownEndMonth}
           >
-            <option value="0">Jan</option>
-            <option value="1">Feb</option>
-            <option value="2">Mar</option>
-            <option value="3">Apr</option>
-            <option value="4">May</option>
-            <option value="5">Jun</option>
-            <option value="6">Jul</option>
-            <option value="7">Aug</option>
-            <option value="8">Sep</option>
-            <option value="9">Oct</option>
-            <option value="10">Nov</option>
-            <option value="11">Dec</option>
+            <option value="01">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">Apr</option>
+            <option value="5">May</option>
+            <option value="6">Jun</option>
+            <option value="7">Jul</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
           </select>
           <label>Day</label>
           <select
             value={this.state.endDay}
             onChange={this.handleDropDownEndDay}
           >
-            <option value="0">01</option>
-            <option value="1">02</option>
-            <option value="2">03</option>
-            <option value="3">04</option>
-            <option value="4">05</option>
-            <option value="5">06</option>
-            <option value="6">07</option>
-            <option value="7">08</option>
-            <option value="8">09</option>
-            <option value="9">10</option>
-            <option value="10">11</option>
-            <option value="11">12</option>
-            <option value="12">13</option>
-            <option value="13">14</option>
-            <option value="14">15</option>
-            <option value="15">16</option>
-            <option value="16">17</option>
-            <option value="17">18</option>
-            <option value="18">19</option>
-            <option value="19">20</option>
-            <option value="20">21</option>
-            <option value="21">22</option>
-            <option value="22">23</option>
-            <option value="23">24</option>
-            <option value="24">25</option>
-            <option value="25">26</option>
-            <option value="26">27</option>
-            <option value="27">28</option>
-            <option value="28">29</option>
-            <option value="29">30</option>
-            <option value="30">31</option>
+            <option value="01">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
           </select>
 
           <label>Year</label>
@@ -253,9 +355,9 @@ class Schedule extends React.Component {
             value={this.state.endYear}
             onChange={this.handleDropDownEndYear}
           >
-            <option value="2017">2018</option>
-            <option value="2018">2019</option>
-            <option value="2019">2020</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
           </select>
 
           <br />
@@ -264,18 +366,18 @@ class Schedule extends React.Component {
             value={this.state.endTimeHour}
             onChange={this.handleDropDownEndTimeHour}
           >
-            <option value="0">01</option>
-            <option value="1">02</option>
-            <option value="2">03</option>
-            <option value="3">04</option>
-            <option value="4">05</option>
-            <option value="5">06</option>
-            <option value="6">07</option>
-            <option value="7">08</option>
-            <option value="8">09</option>
-            <option value="9">10</option>
-            <option value="10">11</option>
-            <option value="11">12</option>
+            <option value="01">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
           </select>
           <label>Minute</label>
           <select
@@ -283,8 +385,7 @@ class Schedule extends React.Component {
             onChange={this.handleDropDownEndTimeMin}
           >
             <option value="0">00</option>
-            <option value="29">30</option>
-          
+            <option value="30">30</option>
           </select>
           <label>AM/PM</label>
           <select
@@ -293,13 +394,21 @@ class Schedule extends React.Component {
           >
             <option value="AM">AM</option>
             <option value="PM">PM</option>
-          
           </select>
+          <h4 style={{ textAlign: "center" }}>
+            <b>Description</b>
+          </h4>
+          <Input
+            type="textarea"
+            name="text"
+            value={this.state.desc}
+            onChange={this.handleDesc}
+          />
           <form>
-
+            <br />
             {/* add event name */}
             {/* <input />  */}
-            <button>Submit</button>
+            <Button onClick={this.getUser}>Submit</Button>
             {/* <button>stays</button>
             <button>inside</button>
             <button>the modal</button> */}

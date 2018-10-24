@@ -1,12 +1,10 @@
-const mongoose = require('mongoose');
-
-const Group = require('../models/Group');
+const mongoose = require("mongoose");
 
 const groupCreate = (req, res) => {
   const { groupName, users } = req.body;
   const newGroup = new Group({
     groupName,
-    users
+    users,
   });
   newGroup.save((err, savedGroup) => {
     if (err) {
@@ -21,7 +19,7 @@ const groupCreate = (req, res) => {
 
 // const addUserToGroup = (req, res) => {
 //   const { id } = req.user.id;
-  
+
 // }
 
 const getGroup = (req, res) => {
@@ -29,11 +27,11 @@ const getGroup = (req, res) => {
   Group.findById(id)
     .then(groups => res.json(groups))
     .catch(err => {
-      res.status(404).json({ nogroupfound: 'No group was found by that ID' });
+      res.status(404).json({ nogroupfound: "No group was found by that ID" });
     });
 };
 
 module.exports = {
   groupCreate,
-  getGroup
+  getGroup,
 };

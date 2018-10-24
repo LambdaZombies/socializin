@@ -5,9 +5,17 @@ const User = require("../models/User");
 const STATUS_USER_ERROR = 422;
 
 const userCreate = (req, res) => {
-  const { name, email, mobileNumber, acceptTexts, acceptEmails } = req.body;
+  const {
+    name,
+    email,
+    mobileNumber,
+    acceptTexts,
+    acceptEmails,
+    tokenId,
+  } = req.body;
   const newUser = new User({
     name,
+    tokenId,
     email,
     mobileNumber,
     acceptTexts,
@@ -51,20 +59,31 @@ const userDelete = (req, res) => {
     .catch(err => res.status(422).json({ error: "No User!" }));
 };
 
+const userGetByToken = (req, res) => {
+  // find a single User
+  const { id } = req.params;
+  console.log("TOKENid", id);
+  User.findOne({ tokenId: id })
+    .then(User => {
+      res.status(200).json(User);
+      console.log("user", User);
+    })
+    .catch(err => res.status(422).json({ error: "No User!" }));
+};
+
 const userGetById = (req, res) => {
   // find a single User
   const { id } = req.params;
   console.log("id", id);
-  User.findById(id)
+  User.findById({ id })
     .then(User => {
-      if (User === null) throw new Error();
-      else res.status(200).json(User);
+      res.status(200).json(User);
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
 };
 
 const userEdit = (req, res) => {
-  console.log("Dashboard");
+  console.log("edit user");
   const {
     name,
     email,
@@ -78,7 +97,8 @@ const userEdit = (req, res) => {
   // edit user details
   // save User
   const { id } = req.params;
-  User.findById(id)
+  console.log(req.body, id);
+  User.findOne({ tokenId: id })
     .then(User => {
       if (User === null) throw new Error();
       if (firstName) User.name = name;
@@ -86,17 +106,59 @@ const userEdit = (req, res) => {
       if (mobilePhone) User.mobilePhone = mobilePhone;
       if (acceptTexts) User.acceptTexts = acceptTexts;
       if (acceptEmails) User.acceptEmails = acceptEmails;
-      if (groups) User.groups = groups;
-      if (events) User.events = events;
+      if (groups) User.groups.push(groups);
+      if (events) User.events.push(events);
       User.save(User, (err, saveduser) => {
         if (err) {
           res.status(500).json(err);
+          console.log(err);
           return;
         }
+        console.log("success", saveduser);
         res.status(200).json(saveduser);
       });
     })
     .catch(err => res.status(422).json({ error: "No User!" }));
+};
+
+const addEvent = (req, res) => {
+  const { title, allDay, allWeek, start, end, desc, id } = req.body;
+  User.update(
+    { _id: id },
+    {
+      $push: {
+        events: {
+          title: title,
+          allDay: allDay,
+          allWeek: allWeek,
+          start: start,
+          end: end,
+          desc: desc,
+        },
+      },
+    },
+    { safe: true, upsert: true },
+    (err, doc) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json(err);
+      } else {
+        res.status(200).json(doc);
+        console.log("success", doc);
+      }
+    }
+  );
+};
+
+const getEvents = (req, res) => {
+  const { id } = req.body;
+  console.log("req.body", id);
+  User.findOne({ tokenId: id })
+    .then(user => {
+      console.log(user);
+      res.status(200).json(user.events);
+    })
+    .catch(err => res.status(422).json(err));
 };
 
 module.exports = {
@@ -105,4 +167,7 @@ module.exports = {
   userDelete,
   userGetById,
   userEdit,
+  userGetByToken,
+  addEvent,
+  getEvents,
 };
