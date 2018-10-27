@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const routes = require("./routes/routes");
+const routes = require("./api/routes/routes");
 
 const port = process.env.PORT || 3030;
 const server = express();
@@ -18,7 +18,7 @@ const corsOptions = {
 };
 
 // Connect to MongoDB & Database Config
-const db = require("../config/keys").mongoURI;
+const db = require("./config/keys").mongoURI;
 
 mongoose.Promise = global.Promise;
 mongoose
