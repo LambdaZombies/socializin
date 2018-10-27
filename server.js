@@ -34,7 +34,7 @@ mongoose
   .catch(function(err) {
     console.log("DB connection failed..", err.message);
   });
-
+server.use(express.static(path.resolve(__dirname, "./client/build")));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
