@@ -2,7 +2,7 @@ import request from "superagent";
 // const credentials = require("../credentials");
 
 const CALENDAR_ID = sessionStorage.getItem("email");
-// const API_KEY = credentials.api_key;
+const API_KEY = '';
 // const HOLIDAY_ID = 'en.usa#holiday@group.v.calendar.google.com';
 const holidayUrl = 
 `https://www.googleapis.com/calendar/v3/calendars/en.usa#holiday@group.v.calendar.google.com/${API_KEY}`;
