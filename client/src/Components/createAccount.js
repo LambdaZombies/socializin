@@ -86,7 +86,7 @@ class AccountCreation extends Component {
     };
     console.log("sending to db:", userInfo);
     try {
-      await axios.post(`https://socializin.herokuapp.com/newuser`, userInfo);
+      await axios.post(`${base}/newuser`, userInfo);
       // .then(res => {
       //   console.log("Response from server: ", res);
       // })
