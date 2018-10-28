@@ -1,9 +1,10 @@
 // const postData = require('./application-data.js');
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const routes = require("./routes/routes");
+const routes = require("./api/routes/routes");
 
 const port = process.env.PORT || 3030;
 const server = express();
@@ -18,12 +19,13 @@ const corsOptions = {
 };
 
 // Connect to MongoDB & Database Config
-const db = require("../config/keys").mongoURI;
+const db = require("./config/keys").mongoURI;
 
 mongoose.Promise = global.Promise;
 mongoose
   // .connect("mongodb://Testy:abc123@ds125031.mlab.com:25031/socializin")
-  .connect("mongodb://localhost:27017/socializin")
+  // .connect("mongodb://localhost:27017/socializin")
+  .connect("mongodb://Testy:abc123@ds231643.mlab.com:31643/socializin")
   .then(function(db) {
     console.log("All your dbs are belong to us!");
     server.listen(port, function() {
@@ -33,7 +35,7 @@ mongoose
   .catch(function(err) {
     console.log("DB connection failed..", err.message);
   });
-
+server.use(express.static(path.resolve(__dirname, "./public")));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
@@ -50,3 +52,9 @@ server.use((req, res, next) => {
 
 // Routes
 routes(server);
+
+server.get("*", (request, response) => {
+  response.sendFile(
+    path.resolve(__dirname, "./client/build", "index.html")
+  );
+});
