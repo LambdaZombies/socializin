@@ -1,4 +1,4 @@
-import htmlContent from '../../googlec08c83094e7d4cb6.html';
+import htmlContent from '../googlec08c83094e7d4cb6.html';
 import React from 'react';
 const Verify = React.createClass({
     render() {
