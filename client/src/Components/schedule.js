@@ -41,13 +41,13 @@ class Schedule extends React.Component {
   };
 
   submitEvent = id => {
-    console.log("get user", this.state.user);
-    console.log("get token and submit event", this.state.id);
+    console.log("get user submit", this.state.user);
+    console.log("get token submit", this.state.id);
     let startHour, endHour;
     if (this.state.startAMPM === "PM")
       startHour = this.state.startTimeHour + 12;
     if (this.state.endAMPM === "PM") endHour = this.state.endTimeHour + 12;
-    console.log("state", this.state);
+    console.log("state submit", this.state);
     let startDate = new Date(
       this.state.startYear,
       this.state.startMonth,
@@ -157,12 +157,8 @@ class Schedule extends React.Component {
     this.setState({ endAMPM: e.target.value });
   };
 
-  openModal = () => {
-    this.setState({ open: true });
-  };
-
-  closeModal = () => {
-    this.setState({ open: false });
+  toggleModal = () => {
+    this.setState({ open: !this.state.open });
   };
 
   handleTitle = e => {
@@ -174,11 +170,10 @@ class Schedule extends React.Component {
   };
 
   render() {
-    const { open } = this.state;
     return (
       <div>
-        <Button onClick={this.openModal}>Add Event</Button>
-        <Modal open={open} onClose={this.closeModal} center>
+        <Button onClick={this.toggleModal}>Add Event</Button>
+        <Modal open={this.state.open} onClose={this.toggleModal} center>
           <h2 ref={subtitle => (this.subtitle = subtitle)}>New Event Title</h2>
           <Input
             type="textarea"
@@ -196,6 +191,7 @@ class Schedule extends React.Component {
             value={this.state.startMonth}
             onChange={this.handleDropDownStartMonth}
           >
+            <option value="" disabled>Choose a month</option>
             <option value="01">Jan</option>
             <option value="2">Feb</option>
             <option value="3">Mar</option>
@@ -214,6 +210,7 @@ class Schedule extends React.Component {
             value={this.state.startDay}
             onChange={this.handleDropDownStartDay}
           >
+            <option value="" disabled>Choose a day</option>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -251,6 +248,7 @@ class Schedule extends React.Component {
             value={this.state.startYear}
             onChange={this.handleDropDownStartYear}
           >
+            <option value="" disabled>Choose a year</option>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
@@ -261,6 +259,7 @@ class Schedule extends React.Component {
             value={this.state.startTimeHour}
             onChange={this.handleDropDownStartTimeHour}
           >
+            <option value="" disabled>Set hour</option>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -279,6 +278,7 @@ class Schedule extends React.Component {
             value={this.state.startTimeMin}
             onChange={this.handleDropDownStartTimeMin}
           >
+            <option value="" disabled>Set minutes</option>
             <option value="0">00</option>
             <option value="30">30</option>
           </select>
@@ -299,6 +299,7 @@ class Schedule extends React.Component {
             value={this.state.endMonth}
             onChange={this.handleDropDownEndMonth}
           >
+            <option value="" disabled>Choose a month</option>
             <option value="01">Jan</option>
             <option value="2">Feb</option>
             <option value="3">Mar</option>
@@ -317,6 +318,7 @@ class Schedule extends React.Component {
             value={this.state.endDay}
             onChange={this.handleDropDownEndDay}
           >
+            <option value="" disabled>Choose a day</option>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -355,6 +357,7 @@ class Schedule extends React.Component {
             value={this.state.endYear}
             onChange={this.handleDropDownEndYear}
           >
+            <option value="" disabled>Choose a year</option>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
@@ -366,6 +369,7 @@ class Schedule extends React.Component {
             value={this.state.endTimeHour}
             onChange={this.handleDropDownEndTimeHour}
           >
+            <option value="" disabled>Set hour</option>
             <option value="01">01</option>
             <option value="2">02</option>
             <option value="3">03</option>
@@ -384,6 +388,7 @@ class Schedule extends React.Component {
             value={this.state.endTimeMin}
             onChange={this.handleDropDownEndTimeMin}
           >
+            <option value="" disabled>Set minutes</option>
             <option value="0">00</option>
             <option value="30">30</option>
           </select>
