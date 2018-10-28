@@ -24,6 +24,7 @@
     "rome": "^2.1.22",
     "superagent": "^3.8.3"
   },
+  "homepage": "https://socializin.herokuapp.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

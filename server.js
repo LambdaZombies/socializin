@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const routes = require("./routes/routes");
+const routes = require("./api/routes/routes");
 
 const port = process.env.PORT || 3030;
 const server = express();
@@ -18,7 +18,7 @@ const corsOptions = {
 };
 
 // Connect to MongoDB & Database Config
-const db = require("../config/keys").mongoURI;
+const db = require("./config/keys").mongoURI;
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -34,7 +34,7 @@ mongoose
   .catch(function(err) {
     console.log("DB connection failed..", err.message);
   });
-
+server.use(express.static(path.resolve(__dirname, "./client/build")));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
@@ -51,3 +51,9 @@ server.use((req, res, next) => {
 
 // Routes
 routes(server);
+
+server.get("*", (request, response) => {
+  response.sendFile(
+    path.resolve(__dirname, "./client/build", "index.html")
+  );
+});
