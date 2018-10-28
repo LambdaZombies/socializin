@@ -7,7 +7,6 @@ import Calendar from "./Components/calendar";
 import Login from "./Components/login";
 import CreateAccount from "./Components/createAccount";
 import Settings from "./Components/settings";
-import Verify from "./Components/verify";
 // import LoanCreate from './Components/LoanCreate';
 // import EditLoan from './Components/EditLoan';
 // import AddAssignment from './Components/AddAssignment';
