@@ -31,7 +31,6 @@ ReactDOM.render(
       <Route path="/login" component={Login} />
       <Route path="/signup" component={CreateAccount} />
       <Route path="/settings" component={Settings} />
-      <Route exact path="/googlec08c83094e7d4cb6.html" component={Verify} />
     </div>
   </Router>,
   document.getElementById("root")
